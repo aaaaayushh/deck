@@ -41,3 +41,41 @@ func TestNew(t *testing.T) {
 		t.Errorf("Wrong number of cards in a new deck")
 	}
 }
+
+func TestDefaultSort(t *testing.T) {
+	cards := New(DefaultSort)
+	// First card should be Ace of Clubs
+	if cards[0] != (Card{Rank: Ace, Suit: Spade}) {
+		t.Errorf("Expected Ace of Spades, received %v", cards[0])
+	}
+
+	// Last card should be King of Spades
+	if cards[len(cards)-1] != (Card{Rank: King, Suit: Heart}) {
+		t.Errorf("Expected King of Hearts, received %v", cards[len(cards)-1])
+	}
+}
+
+func TestSort(t *testing.T) {
+	cards := New(Sort(Less))
+	// First card should be Ace of Clubs
+	if cards[0] != (Card{Rank: Ace, Suit: Spade}) {
+		t.Errorf("Expected Ace of Spades, received %v", cards[0])
+	}
+
+	// Last card should be King of Spades
+	if cards[len(cards)-1] != (Card{Rank: King, Suit: Heart}) {
+		t.Errorf("Expected King of Hearts, received %v", cards[len(cards)-1])
+	}
+}
+func TestJokers(t *testing.T) {
+	cards := New(Jokers(3))
+	count := 0
+	for _, card := range cards {
+		if card.Suit == Joker {
+			count++
+		}
+	}
+	if count != 3 {
+		t.Errorf("Expected 3 Jokers, received %d", count)
+	}
+}
