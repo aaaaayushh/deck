@@ -105,12 +105,13 @@ func absRank(c Card) int {
 	return int(c.Suit)*int(maxRank) + int(c.Rank)
 }
 
+var shuffleRand = rand.New(rand.NewSource(time.Now().Unix()))
+
 func Shuffle(cards []Card) []Card {
 	ret := make([]Card, len(cards))
 	// creating a new random number generator that is seeded with the current time.
 	// The variable r can then be used to generate random numbers
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	perm := r.Perm(len(cards))
+	perm := shuffleRand.Perm(len(cards))
 	// perm will be of the form [0,4,2,3,1...]
 	// "i" is the index of the array i.e. 0,1,2,3,...
 	// "j" is the value at that index of the perm array
