@@ -130,3 +130,18 @@ func Jokers(n int) func([]Card) []Card {
 		return cards
 	}
 }
+
+// Filter function to filter out certain cards from the deck
+// f is a function that returns true or false depending on whether a card should be in the deck or not
+// f is provided by the user according to their needs
+func Filter(f func(card Card) bool) func([]Card) []Card {
+	return func(cards []Card) []Card {
+		var ret []Card
+		for _, c := range cards {
+			if !f(c) {
+				ret = append(ret, c)
+			}
+		}
+		return ret
+	}
+}
