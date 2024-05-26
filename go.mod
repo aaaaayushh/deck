@@ -1,4 +1,4 @@
-module deck
+module github.com/aaaaayushh/deck
 
 go 1.22
 
